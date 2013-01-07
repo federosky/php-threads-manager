@@ -1,10 +1,12 @@
 <?php
-
-namespace Thread\Adapter;
-
+/**
+ *
+ */
 require_once 'Abstract.php';
-
-class SocketStream extends \Thread\Adapter\AdapterAbstract
+/**
+ *
+ */
+class SocketStream extends AdapterAbstract
 {
     public function startThread($command, array $options = null)
     {
@@ -46,10 +48,11 @@ class SocketStream extends \Thread\Adapter\AdapterAbstract
         $url = isset($options['threadUrl']) ? $options['threadUrl'] : null;
 
         if (!$url) {
-            throw new \Exception('Неверно указан скрипт для запуска процессов');
+            throw new Exception('Неверно указан скрипт для запуска процессов');
         }
 
-        $url = array_merge(array(
+        $url = array_merge(
+            array(
                 'scheme' => 'http',
                 'host'   => @$_SERVER['HTTP_HOST'],
                 'port'   => '80',

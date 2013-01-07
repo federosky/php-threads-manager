@@ -1,10 +1,13 @@
 <?php
-
-namespace Thread\Adapter;
-
+/**
+ *
+ */
 require_once 'Abstract.php';
 
-class UnixProcess extends \Thread\Adapter\AdapterAbstract
+/**
+ *
+ */
+class UnixProcess extends AdapterAbstract
 {
     public function startThread($command, array $options = null)
     {
@@ -24,7 +27,7 @@ class UnixProcess extends \Thread\Adapter\AdapterAbstract
         $process    = !empty($options['process']) ? $options['process'] : 'php';
 
         if (!$scriptPath || !file_exists($scriptPath)) {
-            throw new \Exception('Неверно указан скрипт для запуска процессов');
+            throw new Exception('Неверно указан скрипт для запуска процессов');
         }
 
         $args = str_replace('&', '\\&', http_build_query((array) $params));

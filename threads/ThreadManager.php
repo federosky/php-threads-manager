@@ -1,7 +1,7 @@
 <?php
-
-namespace Thread;
-
+/**
+ *
+ */
 require_once __DIR__ . '/adapter/Interface.php';
 
 class ThreadManager
@@ -12,7 +12,7 @@ class ThreadManager
             'scriptPath'         => null,
             'process'            => 'php',
             'maxProcess'         => 10,
-            'onCompliteCallback' => null,
+            'onCompleteCallback' => null,
             'adapter'            => 'UnixProcess',
         ),
         $_adapter          = null,
@@ -21,8 +21,7 @@ class ThreadManager
 
 
     /**
-     * Создает менеджер тредов.
-     * Принимает настройки, список которых можно посмотреть в $this->_options
+     * Get the instance of the Threads Manager
      *
      * @param array|null $options
      * @return ThreadManager
@@ -40,7 +39,7 @@ class ThreadManager
 
     public function setCompliteCallback($callback)
     {
-    	$this->_options['onCompliteCallback'] = $callback;
+    	$this->_options['onCompleteCallback'] = $callback;
     	return $this;
     }
 
@@ -151,7 +150,7 @@ class ThreadManager
 
     private function _notifyComplite($response)
     {
-        $callback = $this->_getOption('onCompliteCallback');
+        $callback = $this->_getOption('onCompleteCallback');
 
         if ($callback && is_callable($callback)) {
             call_user_func($callback, $response);
@@ -176,7 +175,6 @@ class ThreadManager
 
             require_once __DIR__ . '/adapter/'. $name .'.php';
 
-            $name = 'Thread\\Adapter\\' . $name;
             $this->_adapter = new $name();
         }
         return $this->_adapter;

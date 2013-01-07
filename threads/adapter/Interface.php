@@ -1,7 +1,9 @@
 <?php
-
-namespace Thread\Adapter;
-
+/**
+ *
+ * @author fscarabino
+ *
+ */
 interface AdapterInterface
 {
     public function prepareThreadCommand($params, $options);
