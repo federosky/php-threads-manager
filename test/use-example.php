@@ -1,27 +1,33 @@
 <?php
-
+/**
+ *
+ */
 require_once __DIR__ . '/../threads/ThreadManager.php';
 
-$thrManager = Thread\ThreadManager::factory(array(
+$thrManager = ThreadManager::factory(array(
     'timeout'            => 10 * 60, // seconds
-    'maxProcess'         => 10,
+    'maxProcess'         => 5,
     'scriptPath'         => __DIR__ . '/worker.php', // path to worker script
-    'onCompliteCallback' => function($response) {
-        print '<pre>';
-        print_r($response); //
-    }
+    'onCompleteCallback' => 'printCommandResponse'
 ));
 
 
-for ($i = 0; $i < 30; $i++) {
-    $thrManager->addThread(array('action' => 'test', 'data' => 'Hello, world!', 'id' => $i));
+for ($i = 0; $i < 10; $i++) {
+    $thrManager->addThread(array('--action' => 'test', '--queue' => $i));
 }
 
 $thrManager->run(); // run it!
 
 die;
 
-
+/**
+ * Thread completion callback
+ * @param unknown_type $response
+ */
+function printCommandReponse($response)
+{
+    print_r($response); //
+}
 
 /**
 

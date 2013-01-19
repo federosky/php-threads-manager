@@ -2,7 +2,7 @@
 /**
  *
  */
-require_once __DIR__ . '/adapter/Interface.php';
+require_once dirname(__FILE__).'/adapter/Interface.php';
 
 class ThreadManager
 {
@@ -10,7 +10,7 @@ class ThreadManager
         $_options = array(
             'timeout'            => 60,
             'scriptPath'         => null,
-            'process'            => 'php',
+            'process'            => 'nice -n 10 php',
             'maxProcess'         => 10,
             'onCompleteCallback' => null,
             'adapter'            => 'UnixProcess',
@@ -173,7 +173,7 @@ class ThreadManager
             $name = $this->_getOption('adapter');
             $name = preg_replace('/[^\w]/i', '', $name);
 
-            require_once __DIR__ . '/adapter/'. $name .'.php';
+            require_once dirname(__FILE__).'/adapter/'.$name.'.php';
 
             $this->_adapter = new $name();
         }
